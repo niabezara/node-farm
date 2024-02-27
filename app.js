@@ -50,6 +50,6 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(port, serverAddress, () => {
+server.listen(port, () => {
   console.log("you are listening to port 8000");
 });
