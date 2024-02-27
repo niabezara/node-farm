@@ -2,6 +2,10 @@ const http = require("http");
 const url = require("url");
 const fs = require("fs");
 const replaceTemplate = require("./replaceTemplate");
+require("dotenv").config();
+
+const port = process.env.PORT || 3000;
+const serverAddress = process.env.SERVER_ADDRESS || "127.0.0.1";
 
 const data = fs.readFileSync(`${__dirname}/data/data.json`, `utf-8`);
 const tempOverview = fs.readFileSync(
@@ -46,6 +50,6 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(8000, "127.0.0.1", () => {
+server.listen(port, serverAddress, () => {
   console.log("you are listening to port 8000");
 });
