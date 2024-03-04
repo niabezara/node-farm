@@ -1,10 +1,8 @@
 const http = require("http");
 const url = require("url");
 const fs = require("fs");
+var slugify = require("slugify");
 const replaceTemplate = require("./replaceTemplate");
-require("dotenv").config();
-
-const port = process.env.PORT || 3000;
 
 const data = fs.readFileSync(`${__dirname}/data/data.json`, `utf-8`);
 const tempOverview = fs.readFileSync(
@@ -20,7 +18,7 @@ const tempCard = fs.readFileSync(
   `utf-8`
 );
 const dataObj = JSON.parse(data);
-// parse url
+const slug = dataObj.map((el) => slugify(el.productName, { lower: true }));
 
 const server = http.createServer((req, res) => {
   const { pathname, query } = url.parse(req.url, true);
@@ -48,6 +46,8 @@ const server = http.createServer((req, res) => {
     res.end("<h1>page not fount</h1>");
   }
 });
+
+const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
   console.log(`${port}`);
